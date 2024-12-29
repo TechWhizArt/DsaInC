@@ -18,7 +18,7 @@ root *createnode(int info) {
 //all types of traversal
 void preOrderTraversal(root *tree) {
     if(tree != NULL) {
-        printf("%d", tree->data);
+        printf("%d ", tree->data);
         preOrderTraversal(tree->left);
         preOrderTraversal(tree->right);
     }
@@ -27,7 +27,7 @@ void preOrderTraversal(root *tree) {
 void inOrderTraversal(root *tree) {
     if(tree) {
         inOrderTraversal(tree->left);
-        printf("%d", tree->data);
+        printf("%d ", tree->data);
         inOrderTraversal(tree->right);
     }
 }
@@ -36,9 +36,10 @@ void postOrderTraversal(root *tree) {
     if(tree) {
         postOrderTraversal(tree->left);
         postOrderTraversal(tree->right);
-        printf("%d", tree->data);
+        printf("%d ", tree->data);
     }
 }
+
 // all type of tree creation
 root *preTree() {
     int data;
@@ -93,7 +94,7 @@ root *postTree(int *postorder, int *index, int size) {
 
 int main () {
     int ch;
-    root *tree;
+    root *tree=NULL;
     label:
     printf("enter your choise for type of input order:\n\"1\" for preorder\n\"2\" for inorder\n\"3\" for post order");
     scanf("%d", &ch);
@@ -101,22 +102,35 @@ int main () {
         case 1: 
             tree = preTree();
             break;
-        case 2:
-            int inorder[] = {4, 2, 5, 1, 6, 3, 7}; // Example inorder sequence
+        case 2:{
+            int inorder[] = {4, 2, 5, 1, 6, 3, 7};
             int index = 0;
             int size = sizeof(inorder) / sizeof(inorder[0]);
             tree = inTree(inorder, &index, size);
             break;
-        case 3:
-            int postorder[] = {4, 5, 2, 6, 7, 3, 1}; // Example postorder sequence
+        }
+        case 3:{int postorder[] = {4, 5, 2, 6, 7, 3, 1}; // Example postorder sequence
             int index = sizeof(postorder) / sizeof(postorder[0]) - 1;
             int size = sizeof(postorder) / sizeof(postorder[0]);
             tree = postTree(postorder, &index, size);
-            break;
+            break; 
+        }
         default:printf("Wrong choice!!!");
                 goto label;
     }
-    printf("preorder Traversal:");
+
+    printf("\nPreorder Traversal: ");
     preOrderTraversal(tree);
 
+    printf("\nInorder Traversal: ");
+    inOrderTraversal(tree);
+
+    printf("\nPostorder Traversal: ");
+    postOrderTraversal(tree);
+
+    return 0;
+
 }
+
+
+
