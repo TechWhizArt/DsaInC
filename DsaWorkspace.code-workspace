@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"java.project.sourcePaths": [
+			"src"
+		],
+		"java.project.referencedLibraries": [
+			"src/postgresql-42.7.4.jar",
+			"src/org.json-1.6-20240205.jar"
+		]
+	}
+}
