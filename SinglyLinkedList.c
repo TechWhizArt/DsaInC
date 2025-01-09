@@ -158,160 +158,158 @@
 //_________________________________________________________________________________________________________________________________________________
 
 
-// //Deletion of a node code...
+//Deletion of a node code...
 
 
-// #include<stdio.h>
-// #include<stdlib.h>
+#include<stdio.h>
+#include<stdlib.h>
 
-// typedef struct node {
-//     int data;
-//     struct node *next;
-// }node;
+typedef struct node {
+    int data;
+    struct node *next;
+}node;
 
-// node *start = NULL;
+node *start = NULL;
 
-// node *nodecreater(int value) {
-//     node *ptr = (node *) malloc (sizeof(node));
-//     ptr->data = value;
-//     ptr->next =  NULL;
-//     return ptr;
-// }
+node *nodecreater(int value) {
+    node *ptr = (node *) malloc (sizeof(node));
+    ptr->data = value;
+    ptr->next =  NULL;
+    return ptr;
+}
 
-// void insert(node *d){
-//     if(start == NULL) {
-//         start = d;
-//     }else {
-//         node *temp = start;
-//         while(temp-> next !=NULL) {
-//             temp = temp->next;
-//         }
-//         temp->next = d;
-//     }
-// }
+void insert(node *d){
+    if(start == NULL) {
+        start = d;
+    }else {
+        node *temp = start;
+        while(temp-> next !=NULL) {
+            temp = temp->next;
+        }
+        temp->next = d;
+    }
+}
 
-// void traverse() {
+void traverse() {
 
-//     node *ptr = start;
-//     while(ptr != NULL){
-//         printf("->%d", ptr->data);
-//         ptr = ptr->next;
-//     }
-// }
+    node *ptr = start;
+    while(ptr != NULL){
+        printf("->%d", ptr->data);
+        ptr = ptr->next;
+    }
+}
 
-// void del_beg() {
-//     if(start == NULL) {
-//         printf("Underflow");
-//         exit(1);
-//     }
-//     node *temp = start;
-//     start=start->next;
-//     free(temp);
+void del_beg() {
+    if(start == NULL) {
+        printf("Underflow");
+        exit(1);
+    }
+    node *temp = start;
+    start=start->next;
+    free(temp);
     
-// }
+}
 
-// void del_end(){
-//     if(start == NULL) {
-//         printf("Underflow");
-//         exit(1);
-//     }
+void del_end(){
+    if(start == NULL) {
+        printf("Underflow");
+        exit(1);
+    }
 
-//     node *temp = start;
-//     while(temp->next != NULL) {
-//         temp = temp-> next;
-//     }
-//     free(temp);
-// }
+    node *temp = start;
+    while(temp->next != NULL) {
+        temp = temp-> next;
+    }
+    free(temp);
+}
 
-// void del_loc(int loc) {
-//     node *temp = start;
-//     if(start == NULL) {
-//         printf("Underflow");
-//         exit(1);
-//     }
-//     if (loc == 1) {
-//         node *temp = start;
-//         start=start->next;
-//         free(temp);
-//     }
-//     for(int i = 1; i < loc - 1 && temp != NULL; i++) {                          // let loc = 3, 
-//         temp = temp -> next;                                                    // temp = 2pos
-//     }
-//     node *temp2 = temp->next;                                                   // temp2 = 3pos
-//     temp->next = temp2->next;                                                   // temp->next = temp2->next then temp2 delete form heap
-//     free(temp2);
-// }
+void del_loc(int loc) {
 
-// void del_value (int specific_data) {
-//     if(start == NULL) {
-//         printf("Underflow");
-//         exit(1);
-//     }
-//     if (start->data == specific_data) {  // If the first node contains the value
-//         del_beg();
-//         return;
-//     }
-//     node *temp = start->next;
-//     node *prev =start;
+    node *temp = start;
+    if(start == NULL) {
+        printf("Underflow");
+        exit(1);
+    }
+    if (loc == 1) {
+        node *temp = start;
+        start=start->next;
+        free(temp);
+    }
+    for(int i = 1; i < loc - 1 && temp != NULL; i++) {                          // let loc = 3, 
+        temp = temp -> next;                                                    // temp = 2pos
+    }
+    node *temp2 = temp->next;                                                   // temp2 = 3pos
+    temp->next = temp2->next;                                                   // temp->next = temp2->next then temp2 delete form heap
+    free(temp2);
+}
 
-//     while(temp != NULL) {
-//         if(temp->data == specific_data) {
-//             prev->next = temp->next;
-//             node *tobedeleted = temp;
-//             temp = temp->next; 
-//             free(tobedeleted);
-//         }else {
-//             prev = temp;
-//             temp = temp->next;
-//         }
-//     }
-// }
+void del_value (int specific_data) {
+    if(start == NULL) {
+        printf("Underflow");
+        exit(1);
+    }
+    if (start->data == specific_data) {  // If the first node contains the value
+        del_beg();
+        
+    }
+    node *temp = start;
+
+    while(temp->next != NULL) {
+        if(temp->next->data == specific_data){
+            node *temp2 = temp->next;
+            temp->next = temp2->next;
+            free(temp2);
+            continue;
+        }
+        temp = temp->next;
+    }
+}
 
 
-// void main(){
-//     int n, value, loc, specific_data;
-//     printf("no. of nodes :");
-//     scanf("%d", &n);
-//     printf("Enter values");
-//     for(int i = 0; i<n; i++) {
-//         scanf("%d", &value);
-//         node *d = nodecreater(value);
-//         insert(d);
-//     }
+void main(){
+    int n, value, loc, specific_data;
+    printf("no. of nodes :");
+    scanf("%d", &n);
+    printf("Enter values");
+    for(int i = 0; i<n; i++) {
+        scanf("%d", &value);
+        node *d = nodecreater(value);
+        insert(d);
+    }
 
-//     printf("The linked list is as follows: \n");
-//     traverse();
-//     tryAgain :        // label used for goto command
-//     printf("\nPress 1 for deletion at the beginning:\nPress 2 for end:\nPress 3 for specified location:\nPress 4 for deleting specific data: ");
-//     int ch;
-//     scanf("%d", &ch);
-//     switch(ch) {
-//         case 1: 
-//             del_beg();
-//             break;
-//         case 2:
-//             del_end();
-//             break;
-//         case 3:
+    printf("The linked list is as follows: \n");
+    traverse();
+    tryAgain :        // label used for goto command
+    printf("\nPress 1 for deletion at the beginning:\nPress 2 for end:\nPress 3 for specified location:\nPress 4 for deleting specific data: ");
+    int ch;
+    scanf("%d", &ch);
+    switch(ch) {
+        case 1: 
+            del_beg();
+            break;
+        case 2:
+            del_end();
+            break;
+        case 3:
             
-//             printf("Enter the position to be deleted: ");
-//             scanf("%d", &loc);
-//             del_loc(loc);
-//             break;
-//         case 4:
-//             printf("enter the value to be deleted: ");
-//             scanf("%d", &specific_data);
-//             del_value(specific_data);
-//             break;
-//         default : 
-//             printf("Invalid choice");
-//             goto tryAgain;
-//     }
-//     printf("The new linked list is as follows: \n");
-//     traverse();
-// }
+            printf("Enter the position to be deleted: ");
+            scanf("%d", &loc);
+            del_loc(loc);
+            break;
+        case 4:
+            printf("enter the value to be deleted: ");
+            scanf("%d", &specific_data);
+            del_value(specific_data);
+            break;
+        default : 
+            printf("Invalid choice");
+            goto tryAgain;
+    }
+    printf("The new linked list is as follows: \n");
+    traverse();
+}
 
-
+//  ____________________________________________________________________________________________________________________________________________________________
 
 // //Insertion of a node code...
 

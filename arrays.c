@@ -253,5 +253,20 @@
 //     //print the array
 // }
 
+// //nprogram to convert to binary
 
+// #include <stdio.h>
+
+// int main () {
+//     int arr[20], n=5, i=0;
+//     while (n>0){
+//         arr[i] = n%2;
+//         n/=2;
+//         i++;
+//     }
+//     while(i>0){
+//         printf("%d", arr[i-1]);
+//         i--;
+//     }
+// }
 
