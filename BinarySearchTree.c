@@ -17,7 +17,7 @@ node *nodecreater(int info) {
 node *insert(node *root, int data) {
      // If the tree is empty, create a new node and return it
     if (root == NULL) {
-        return createNode(data);
+        return nodecreater(data);
     }
 
     // Recur down the tree
