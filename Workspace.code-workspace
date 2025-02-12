@@ -1,9 +1,5 @@
 {
-	"folders": [
-		{
-			"path": "../NiharikaFold/PrachiWebResume"
-		}
-	],
+	"folders": [],
 	"settings": {
 		"java.project.sourcePaths": [
 			"src"
