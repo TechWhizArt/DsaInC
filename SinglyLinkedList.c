@@ -224,7 +224,6 @@
 // }
 
 // void del_loc(int loc) {
-
 //     node *temp = start;
 //     if(start == NULL) {
 //         printf("Underflow");
@@ -250,18 +249,21 @@
 //     }
 //     if (start->data == specific_data) {  // If the first node contains the value
 //         del_beg();
-        
+//         return;
 //     }
-//     node *temp = start;
+//     node *temp = start->next;
+//     node *prev =start;
 
-//     while(temp->next != NULL) {
-//         if(temp->next->data == specific_data){
-//             node *temp2 = temp->next;
-//             temp->next = temp2->next;
-//             free(temp2);
-//             continue;
+//     while(temp != NULL) {
+//         if(temp->data == specific_data) {
+//             prev->next = temp->next;
+//             node *tobedeleted = temp;
+//             temp = temp->next; 
+//             free(tobedeleted);
+//         }else {
+//             prev = temp;
+//             temp = temp->next;
 //         }
-//         temp = temp->next;
 //     }
 // }
 
@@ -309,134 +311,130 @@
 //     traverse();
 // }
 
-//  ____________________________________________________________________________________________________________________________________________________________
-
-// //Insertion of a node code...
-
-// #include<stdio.h>
-// #include<stdlib.h>
-
-// typedef struct node {
-//     int data;
-//     struct node *next;
-// }node;
-
-// node *start = NULL;
-
-// node *nodecreater(int value) {
-//     node *ptr = (node *) malloc (sizeof(node));
-//     ptr->data = value;
-//     ptr->next =  NULL;
-//     return ptr;
-// }
-
-// void insert(node *d){
-//     if(start == NULL) {
-//         start = d;
-//     }else {
-//         node *temp = start;
-//         while(temp-> next !=NULL) {
-//             temp = temp->next;
-//         }
-//         temp->next = d;
-//     }
-// }
-
-// void traverse() {
-
-//     node *ptr = start;
-//     while(ptr != NULL){
-//         printf("->%d", ptr->data);
-//         ptr = ptr->next;
-//     }
-// }
-
-// void ins_beg(int value){
-//     node *newnode = nodecreater(value);
-//     if(newnode == NULL) {
-//         printf("Overflow");
-//     }
-//     newnode->next = start;
-//     start = newnode;
-// }
-
-// void ins_end(int value) {
-//     node *temp = start;
-//     node *newnode = nodecreater(value);
-//     if(newnode == NULL) {
-//         printf("Overflow");
-//     }    
-//     while (temp->next != NULL) {
-//         temp = temp->next;
-//     }
-//     temp->next = newnode;
-// }
-
-// void ins_loc(int loc, int value) {
-//     node *newnode = nodecreater(value);
-//     node *temp = start;
-//     if(loc == 1) {
-//         ins_beg(value);
-//     }
-//     for(int i = 1; i<loc-1 && temp != NULL; i++) {                              // let loc = 5, i = 4 tak & loop 1->2, 2->3, 3->4 i.e. 3baar
-//         temp = temp->next;                                                      //start->next2->next3->next4   4th node position
-// }
-//     newnode->next = temp->next;
-//     temp->next = newnode;                                                       // 5th position pe inserted
-
-// }
 
 
-// void main(){
-//     int n, value, loc, specific_data, ch;
-//     printf("no. of nodes :");
-//     scanf("%d", &n);
-//     printf("Enter values");
-//     for(int i = 0; i<n; i++) {
-//         scanf("%d", &value);
-//         node *d = nodecreater(value);
-//         insert(d);
-//     }
+//Insertion of a node code...
 
-//     printf("The linked list is as follows: \n");
-//     traverse();
+#include<stdio.h>
+#include<stdlib.h>
 
-//     printf("\nInsert the value to be inserted: ");
-//     scanf("%d", &value);
+typedef struct node {
+    int data;
+    struct node *next;
+}node;
 
-//     tryAgain:        // label used for goto command
-//     printf("\nPress 1 for insertion at the beginning:\nPress 2 for end:\nPress 3 for specified location:\nPress 4 for inserting after a specific data: ");
-//     scanf("%d", &ch);
+node *start = NULL;
 
-//     switch(ch) {
-//         case 1: 
-//             ins_beg(value);
-//             break;
-//         case 2:
-//             ins_end(value);
-//             break;
-//         case 3:
-//         printf("enter position where the new node is to be inserted: ");
-//         scanf("%d", &loc);
-//             ins_loc(loc, value);
-//             break;
-//         case 4:
-//             // printf("enter the value to be deleted: ");
-//             // scanf("%d", &specific_data);
-//             // ins_value(specific_data);
-//             // break;
-//             printf("Code incomplete\nPlease choose from remaining three choices: ");
-//             goto tryAgain;
-//         default : 
-//             printf("Invalid choice");
-//             goto tryAgain;
-//     }
-//     printf("\nThe new linked list is as follows: \n");
-//     traverse();
-// }
-
-#include <stdio.h>
-#include <stdlib.h>
-struct node *reverse(struct node *head){
-    
+node *nodecreater(int value) {
+    node *ptr = (node *) malloc (sizeof(node));
+    ptr->data = value;
+    ptr->next =  NULL;
+    return ptr;
 }
+
+void insert(node *d){
+    if(start == NULL) {
+        start = d;
+    }else {
+        node *temp = start;
+        while(temp-> next !=NULL) {
+            temp = temp->next;
+        }
+        temp->next = d;
+    }
+}
+
+void traverse() {
+
+    node *ptr = start;
+    while(ptr != NULL){
+        printf("->%d", ptr->data);
+        ptr = ptr->next;
+    }
+}
+
+void ins_beg(int value){
+    node *newnode = nodecreater(value);
+    if(newnode == NULL) {
+        printf("Overflow");
+    }
+    newnode->next = start;
+    start = newnode;
+}
+
+void ins_end(int value) {
+    node *temp = start;
+    node *newnode = nodecreater(value);
+    if(newnode == NULL) {
+        printf("Overflow");
+    }    
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+    temp->next = newnode;
+}
+
+void ins_loc(int loc, int value) {
+    node *newnode = nodecreater(value);
+    node *temp = start;
+    if(loc == 1) {
+        ins_end(value);
+    }
+    for(int i = 1; i<loc-1 && temp != NULL; i++) {
+        temp = temp->next;
+    }
+    newnode->next = temp->next;
+    temp->next = newnode;
+
+}
+
+
+void main(){
+    int n, value, loc, specific_data, ch;
+    printf("no. of nodes :");
+    scanf("%d", &n);
+    printf("Enter values");
+    for(int i = 0; i<n; i++) {
+        scanf("%d", &value);
+        node *d = nodecreater(value);
+        insert(d);
+    }
+
+    printf("The linked list is as follows: \n");
+    traverse();
+
+    printf("\nInsert the value to be inserted: ");
+    scanf("%d", &value);
+
+    tryAgain :        // label used for goto command
+    printf("\nPress 1 for insertion at the beginning:\nPress 2 for end:\nPress 3 for specified location: \nPress 4 for inserting after a specific data: ");
+    scanf("%d", &ch);
+
+    switch(ch) {
+        case 1: 
+            ins_beg(value);
+            break;
+        case 2:
+            ins_end(value);
+            break;
+        case 3:
+        printf("enter position where the new node is to be inserted: ");
+        scanf("%d", &loc);
+            ins_loc(loc, value);
+            break;
+        case 4:
+            // printf("enter the value to be deleted: ");
+            // scanf("%d", &specific_data);
+            // ins_value(specific_data);
+            // break;
+            printf("Code incomplete\nPlease choose from remaining three choices: ");
+            goto tryAgain;
+        default : 
+            printf("Invalid choice");
+            goto tryAgain;
+    }
+    printf("\nThe new linked list is as follows: \n");
+    traverse();
+}
+
+
