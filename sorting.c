@@ -106,6 +106,63 @@
 //________________________________________________________________________________________________________________________________________
 
 // //Insertion sort...
+
+#include <stdio.h>
+#include <stdlib.h>
+void insertionSort(int arr[], int n){
+
+    for(int i=1; i<n; i++) {
+        int current = arr[i];
+        int prev = i-1;
+        while (arr[prev] > current && prev >= 0) {
+            arr[prev+1] = arr[prev];
+            prev--;
+        }
+        arr[prev+1] = current;
+    }
+}
+
+void printelements(int arr[], int n) {
+    for(int i = 0; i<n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+int main () {
+    int n;
+    printf("Enter the number of elements in the array: ");
+    scanf("%d", &n);
+    int arr[n];
+    printf("Enter the elements in the array:");
+    for(int i = 0; i<n; i++) {
+        scanf("%d", &arr[i]);
+    }
+    printelements(arr, n);
+    insertionSort(arr, n);
+    printelements(arr, n);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // #include <stdio.h>
 
 // void insertionSort(int arr[], int n) {
