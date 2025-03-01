@@ -9,7 +9,7 @@ typedef struct doublynode{
 }node;
 node *start = NULL;
 node *nodecreater(int value) {
-    node *ptr = (node*)malloc(sizeof(node*));
+    node *ptr = (node*)malloc(sizeof(node));
     ptr->data = value;
     ptr->next = NULL;
     ptr->prev = NULL;
@@ -34,7 +34,7 @@ void insertnode(node* ptr) {
 void traverse(){
     node*temp = start;
     while(temp !=NULL) {
-        printf("%d", temp->data);
+        printf("%d <->", temp->data);
         temp = temp->next;
     }
 }
@@ -44,11 +44,34 @@ void reverse() {
         temp = temp->next;
     }
     while(temp!=NULL){
-        printf("%d", temp->data);
+        printf("%d <->", temp->data);
         temp = temp->prev;
     }
     
 }
+
+void ins_beg(int value) {
+    node *newnode = nodecreater(value);
+    if (newnode == NULL) {
+        printf("Overflow");
+        exit(1);
+    }
+    if (start == NULL) {
+        start = newnode;
+    } else {
+        newnode->next = start;
+        start->prev = newnode;
+        start = newnode;
+    }
+}
+
+
+
+
+
+
+
+
 
 int main () {
     

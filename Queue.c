@@ -39,10 +39,10 @@
 // }
 
 // bool isempty() {
-//     return front == -1;
+//     return front == -1;       //underflow condition
 // }
 // bool isfull() {
-//     return rear == SIZE-1;
+//     return rear == SIZE-1;    //overflow condition
 // }
 // void display() {
 //     if(front == -1){
@@ -166,6 +166,7 @@
 //         printf("Queue is empty");
 //     }else if (front == rear){
 //         free (temp);
+//         front = rear = NULL;
 //     }else{
 //         front = front->next;
 //         rear->next = front;

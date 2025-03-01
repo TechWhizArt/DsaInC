@@ -1,5 +1,98 @@
-// //Bubble sort...________________________________________________________________________________________________________________________________________
 
+// Searching techniques...
+// 1. Linear search
+
+// #include <stdio.h>
+// #include <stdlib.h>
+
+// void linearSearch(int arr[], int k, int n) {
+//     int i, count = 0;
+//     for(i = 0; i< n; i++) {
+//         if(arr[i] == k) {
+//             printf("Element found at index %d\n", i);
+//             count++;
+//         }
+//     }
+//     if(count == 0) {
+//         printf("Element not found\n");
+//     }
+// }
+
+// int main() {
+//     int n, k;
+//     printf("Enter the number of elements in the array: ");
+//     scanf("%d", &n);
+//     int arr[n];
+//     printf("Enter the elements in the array: ");
+//     for(int i = 0; i<n; i++) {
+//         scanf("%d", &arr[i]);
+//     }
+//     printf("Enter the element to be searched: ");
+//     scanf("%d", &k);
+//     linearSearch(arr, k, n);
+//     return 0;
+// }
+
+
+
+// // 2. Binary search
+
+
+// #include <stdio.h>
+// #include <stdlib.h>
+
+// int binarySearch(int arr[], int left, int right, int target) {
+//     if (left <= right) {
+//         int mid = left + (right - left) / 2;
+
+//         // Check if the target is at mid
+//         if (arr[mid] == target)
+//             return mid;
+
+//         // If target is smaller, search the left subarray
+//         if (arr[mid] > target)
+//             return binarySearch(arr, left, mid - 1, target);
+
+//         // If target is larger, search the right subarray
+//         return binarySearch(arr, mid + 1, right, target);
+//     }
+//     return -1; // Target not found
+// }
+
+// int main() {
+//     int arr[] = {2, 4, 6, 8, 10, 12, 14, 16}; // Sorted array
+//     int size = sizeof(arr) / sizeof(arr[0]);
+//     int target;
+ 
+//     printf("Enter the number to search: ");
+//     scanf("%d", &target);
+
+//     int result = binarySearch(arr, 0, size - 1, target);
+
+//     if (result != -1)
+//         printf("%d found at index %d\n", target, result);
+//     else
+//         printf("%d not found in the array\n", target);
+
+//     return 0;
+// }
+
+
+// // ________________________________________________________________________________________________________________________________________________
+// // Sorting techniques...
+
+
+
+
+
+
+
+
+
+
+
+
+// //Bubble sort..._________________________________________________________________________________________________________________________________
 // #include <stdio.h>
 
 // void bubbleSort(int arr[], int n) {
@@ -105,43 +198,43 @@
 // }
 //________________________________________________________________________________________________________________________________________
 
-// //Insertion sort...
+// // //Insertion sort...
 
-#include <stdio.h>
-#include <stdlib.h>
-void insertionSort(int arr[], int n){
+// #include <stdio.h>
+// #include <stdlib.h>
+// void insertionSort(int arr[], int n){
 
-    for(int i=1; i<n; i++) {
-        int current = arr[i];
-        int prev = i-1;
-        while (arr[prev] > current && prev >= 0) {
-            arr[prev+1] = arr[prev];
-            prev--;
-        }
-        arr[prev+1] = current;
-    }
-}
+//     for(int i=1; i<n; i++) {
+//         int current = arr[i];
+//         int prev = i-1;
+//         while (arr[prev] > current && prev >= 0) {
+//             arr[prev+1] = arr[prev];
+//             prev--;
+//         }
+//         arr[prev+1] = current;
+//     }
+// }
 
-void printelements(int arr[], int n) {
-    for(int i = 0; i<n; i++) {
-        printf("%d ", arr[i]);
-    }
-    printf("\n");
-}
+// void printelements(int arr[], int n) {
+//     for(int i = 0; i<n; i++) {
+//         printf("%d ", arr[i]);
+//     }
+//     printf("\n");
+// }
 
-int main () {
-    int n;
-    printf("Enter the number of elements in the array: ");
-    scanf("%d", &n);
-    int arr[n];
-    printf("Enter the elements in the array:");
-    for(int i = 0; i<n; i++) {
-        scanf("%d", &arr[i]);
-    }
-    printelements(arr, n);
-    insertionSort(arr, n);
-    printelements(arr, n);
-}
+// int main () {
+//     int n;
+//     printf("Enter the number of elements in the array: ");
+//     scanf("%d", &n);
+//     int arr[n];
+//     printf("Enter the elements in the array:");
+//     for(int i = 0; i<n; i++) {
+//         scanf("%d", &arr[i]);
+//     }
+//     printelements(arr, n);
+//     insertionSort(arr, n);
+//     printelements(arr, n);
+// }
 
 
 
@@ -202,4 +295,89 @@ int main () {
 
 //________________________________________________________________________________________________________________________________________
 
+
+
+
+
 // //Merge sort...
+
+#include <stdio.h>
+
+// Function to merge two subarrays
+void merge(int arr[], int left, int mid, int right) {
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+
+    // Temporary arrays
+    int L[n1], R[n2];
+
+    // Copy data to temporary arrays
+    for (int i = 0; i < n1; i++)
+        L[i] = arr[left + i];
+    for (int j = 0; j < n2; j++)
+        R[j] = arr[mid + 1 + j];
+
+    // Merge the two arrays back into arr[]
+    int i = 0, j = 0, k = left;
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            arr[k] = L[i];
+            i++;
+        } else {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+
+    // Copy remaining elements of L[]
+    while (i < n1) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+
+    // Copy remaining elements of R[]
+    while (j < n2) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+}
+
+// Recursive function for Merge Sort
+void mergeSort(int arr[], int left, int right) {
+    if (left < right) {
+        int mid = left + (right - left) / 2;
+
+        // Recursively divide the array
+        mergeSort(arr, left, mid);
+        mergeSort(arr, mid + 1, right);
+
+        // Merge the sorted halves
+        merge(arr, left, mid, right);
+    }
+}
+
+// Function to print the array
+void printArray(int arr[], int size) {
+    for (int i = 0; i < size; i++)
+        printf("%d ", arr[i]);
+    printf("\n");
+}
+
+// Main function
+int main() {
+    int arr[] = {12, 11, 13, 5, 6, 7};
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    printf("Original array: ");
+    printArray(arr, size);
+
+    mergeSort(arr, 0, size - 1);
+
+    printf("Sorted array: ");
+    printArray(arr, size);
+
+    return 0;
+}

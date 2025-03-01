@@ -236,15 +236,13 @@
 //         exit(1);
 //     }
 //     if (loc == 1) {
-//         node *temp = start;
-//         start=start->next;
-//         free(temp);
+//         del_end();
 //     }
-//     for(int i = 1; i < loc - 1 && temp != NULL; i++) {                          // let loc = 3, 
-//         temp = temp -> next;                                                    // temp = 2pos
+//     for(int i = 1; i < loc - 1 && temp != NULL; i++) {                      // let loc = 3, 
+//         temp = temp -> next;                                                // temp = 2 position
 //     }
-//     node *temp2 = temp->next;                                                   // temp2 = 3pos
-//     temp->next = temp2->next;                                                   // temp->next = temp2->next then temp2 delete form heap
+//     node *temp2 = temp->next;                                               // temp2 = 3 position
+//     temp->next = temp2->next;                                               // temp->next(2pos->next) = temp2->next (4pos) then temp2 delete form heap
 //     free(temp2);
 // }
 
@@ -384,7 +382,7 @@
 //     node *newnode = nodecreater(value);
 //     node *temp = start;
 //     if(loc == 1) {
-//         ins_end(value);
+//         ins_beg(value);
 //     }
 //     for(int i = 1; i<loc-1 && temp != NULL; i++) {
 //         temp = temp->next;
@@ -476,13 +474,42 @@ void insert(int value){
     }
 }
 
+
+void del_value (int specific_data) {
+    if(start == NULL) {
+        printf("Underflow");
+        exit(1);
+    }
+    while (start->data == specific_data) {  // If the first node contains the value
+        node *temp = start;
+        start = start->next;
+        free(temp);
+    }
+    node *temp = start->next;
+    node *prev =start;
+
+    while(temp != NULL) {
+        if(temp->data == specific_data) {
+            prev->next = temp->next;
+            node *tobedeleted = temp;
+            temp = temp->next; 
+            free(tobedeleted);
+        }else {
+            prev = temp;
+            temp = temp->next;
+        }
+    }
+}
+
+
 void traverse() {
 
     node *ptr = start;
-    while(ptr != NULL){
+    while(ptr){
         printf("->%d", ptr->data);
         ptr = ptr->next;
     }
+    printf("\n");
 }
 
 int main () {
@@ -495,6 +522,8 @@ int main () {
         insert(value);
         n--;
     }
+    traverse();
+    del_value(3);
     traverse();
     return 0;
 }
